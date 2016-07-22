@@ -7,6 +7,7 @@
 #     wget http://www.post.japanpost.jp/zipcode/dl/roman/ken_all_rome.zip
 #     unzip ken_all_rome.zip
 #     nkf -Sw KEN_ALL_ROME.CSV > KEN_ALL_ROME.UTF8.CSV
+#     python ./makejsonpdata-from-csv.py KEN_ALL_ROME.UTF8.CSV
 
 import sys
 import csv
