@@ -128,16 +128,31 @@ var parse = function(row) {
   var prefectureEn = PREFMAP_EN[prefectureId];
   if (!prefectureEn) return null;
 
+  var cityJa   = row[1] || '';
+  var areaJa   = row[2] || '';
+  var streetJa = row[3] || '';
+  var cityEn   = row[4] || '';
+  var areaEn   = row[5] || '';
+  var streetEn = row[6] || '';
+
+  var addressJa = prefectureJa + cityJa + areaJa + streetJa;
+  var addressEn = prefectureEn + ', Japan';
+  if (cityEn)   addressEn = cityEn   + ', ' + addressEn;
+  if (areaEn)   addressEn = areaEn   + ', ' + addressEn;
+  if (streetEn) addressEn = streetEn + ', ' + addressEn;
+
   return {
     'prefectureId': prefectureId,  // 都道府県ID
     'prefecture':   prefectureJa,  // 都道府県名
-    'city':         row[1] || '',  // 市区町村名
-    'area':         row[2] || '',  // 町域名
-    'street':       row[3] || '',  // 番地
+    'city':         cityJa,        // 市区町村名
+    'area':         areaJa,        // 町域名
+    'street':       streetJa,      // 番地
+    'address':      addressJa,     // 都道府県名 + 市区町村名 + 町域名 + 番地
     'prefectureEn': prefectureEn,  // Prefecture
-    'cityEn':       row[4] || '',  // City
-    'areaEn':       row[5] || '',  // Area
-    'streetEn':     row[6] || ''   // Street
+    'cityEn':       cityEn,        // City
+    'areaEn':       areaEn,        // Area
+    'streetEn':     streetEn,      // Street
+    'addressEn':    addressEn      // Street, Area, City, Prefecture, Japan
   };
 };
 
