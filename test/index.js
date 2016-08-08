@@ -38,11 +38,14 @@ describe('#get', function () {
     });
   });
 
-  it('fetch null', function() {
-    // FIXME: I want to test, callback function is not invoke
+  it('returns null with short postalcode', function() {
+    // // FIXME: I want to test, callback function is not invoke
+    // postal_code.get('100', function(address) {
+    //   expect().fail("Should not call callback function.");
+    //   done();
+    // });
     postal_code.get('100', function(address) {
-      expect().fail("Should not call callback function.");
-      done();
+      expect(address).to.be(null);
     });
   });
 });
@@ -102,6 +105,13 @@ describe('#getMulti', function () {
 
       delete global.zipdata;
       done();
+    });
+  });
+
+  it('returns empty array [] with short postalcode', function() {
+    postal_code.getMulti('100', function(address) {
+      expect(address).to.be.an('array');
+      expect(address.length).to.eql(0);
     });
   });
 });

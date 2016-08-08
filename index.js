@@ -76,13 +76,15 @@ exports.setCallbackName = function(name) {
 
 exports.get = function(_postalcode, callback) {
   getWithFilter(_postalcode, callback, function(addresses) {
-    return addresses[0];
+    if (addresses) return addresses[0];
+    return null;
   });
 };
 
 exports.getMulti = function(_postalcode, callback) {
   getWithFilter(_postalcode, callback, function(addresses) {
-    return addresses;
+    if (addresses) return addresses;
+    return [];
   });
 };
 
@@ -158,7 +160,10 @@ var parse = function(row) {
 
 var getWithFilter = function (_postalcode, callback, filter) {
   var postalcode = normalizePostalcode(_postalcode);
-  if (!postalcode) return;
+  if (!postalcode) {
+    callback(filter(null));
+    return;
+  }
   var postalcode3 = postalcode.substr(0, 3);
 
   var records = cache(postalcode3);
@@ -169,7 +174,9 @@ var getWithFilter = function (_postalcode, callback, filter) {
   }
 
   jsonp(jsonpUrl(postalcode3), { name: CALLBACK_NAME }, function(error, records) {
-    if (!error) {
+    if (error) {
+      callback(filter(null));
+    } else {
       cache(postalcode3, records);
       var addresses = lookupAddresses(postalcode, records);
       callback(filter(addresses));
