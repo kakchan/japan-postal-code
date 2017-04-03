@@ -9,7 +9,7 @@ Then add addess in English support.
 
 ## How to install
 ```
-npm install "git://github.com/meltedice/japan-postal-code.git#support-address-in-english"
+npm install ZCloud-Firstserver/japan-postal-code
 ```
 
 ## How to use
