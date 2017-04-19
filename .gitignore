@@ -1,2 +1,6 @@
 .DS_Store
 node_modules/
+
+ken_all_rome*
+*.log
+yarn.lock
