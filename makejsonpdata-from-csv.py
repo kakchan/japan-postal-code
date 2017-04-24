@@ -11,6 +11,7 @@
 
 import sys
 import csv
+import re
 reload(sys)
 sys.setdefaultencoding("UTF-8")
 
@@ -127,21 +128,29 @@ def normalize_area_ja(area_ja):
     u""" Normalize japanese area name
     >>> normalize_area_ja('以下に掲載がない場合')
     ''
+    >>> print normalize_area_ja('北二条西（１〜１９丁目）')
+    北二条西
     >>> print normalize_area_ja('角館町　薗田')
     角館町薗田
     """
     if area_ja == '以下に掲載がない場合': return ''
-    return area_ja.replace('　', '')
+    words = re.sub(r'（([０-９]+階)）', r'\1', area_ja)
+    words = re.sub(r'（.*', '', words)
+    return words.replace('　', '')
 
 def normalize_area_en(area_ro):
     """ Normalize english area name
     >>> normalize_area_en('IKANIKEISAIGANAIBAAI')
     ''
+    >>> normalize_area_en('KITA2-JONISHI(1-19-CHOME)')
+    'Kita2-jonishi'
     >>> normalize_area_en('KAKUNODATEMACHI SONODA')
     'Kakunodatemachi Sonoda'
     """
     if area_ro == 'IKANIKEISAIGANAIBAAI': return ''
-    words = area_ro.split(' ')
+    words = re.sub(r'\((\d+)-KAI\)', r' \1F', area_ro)
+    words = re.sub(r'\(.*', '', words)
+    words = words.split(' ')
     words = map(lambda word: word.capitalize(), words)
     return ' '.join(words)
 
