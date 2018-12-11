@@ -1,4 +1,4 @@
-import request from 'request';
+import request from 'request-promise-lite';
 import { take } from 'ramda';
 
 
@@ -112,11 +112,11 @@ export const getWithFilter = _postCode => {
     return Promise.resolve();
   }
   const fileName = postCode.substr(0, 3);
-  return (new Promise((resolve, reject) => {
-    request(postCodeFileUrl(fileName), function(err, resp) {
-      if (err) {
-        return reject(err);
-      }
+  return request.get(postCodeFileUrl(fileName), {
+    resolveWithFullResponse: true
+  })
+    .then(resp => {
+      console.log(resp);
       const jsonString = resp.body.trim().replace(/(zipdata\(|\)$)/g, '');
       const json = JSON.parse(jsonString);
       let returnArray = [];
@@ -128,7 +128,6 @@ export const getWithFilter = _postCode => {
           }
         }
       }
-      resolve(take(MAX_RETURN_ITEMS, returnArray).map(item => parse(item)));
-    })
-  }));
+      return take(MAX_RETURN_ITEMS, returnArray).map(item => parse(item));
+    });
 };

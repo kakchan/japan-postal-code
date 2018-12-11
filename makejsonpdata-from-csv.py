@@ -212,8 +212,8 @@ def writeAddressesIntoJsonpFiles(addresses, path_prefix, callback_name):
                 records.append(record)
             record_sets.append('"%s":[%s]' % (postalcode, ','.join(records)))
 
-        jsonp = callback_name + "({" + ",".join(record_sets) + "})\n"
- 
+        jsonp = "{" + ",".join(record_sets) + "}"
+
         path = path_prefix + postalcode3 + '.js'
         f = open(path, "w")
         f.write(jsonp)

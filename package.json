@@ -32,13 +32,14 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "expect.js": "~0.3.1",
+    "jest": "^23.6.0",
     "regenerator-runtime": "^0.13.1",
-    "zuul": "~3.10.1",
-    "jest": "^23.6.0"
+    "zuul": "~3.10.1"
   },
   "dependencies": {
     "ramda": "^0.26.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "request-promise-lite": "^0.15.0"
   },
   "scripts": {
     "test": "zuul -- test/*.js",
