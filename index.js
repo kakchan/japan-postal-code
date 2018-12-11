@@ -36,8 +36,6 @@ exports.setCallbackName = function(name) {
   CALLBACK_NAME = name;
 };
 
-exports.get = (_postalcode, maxItems) => getWithFilter(_postalcode, maxItems);
-
 const cache = function (postalcode3, records) {
   if (records) {
     CACHE[postalcode3] = records;
@@ -82,6 +80,7 @@ const parse = function(row) {
   const cityEn = row[4] || '';
   const areaEn = row[5] || '';
   const streetEn = row[6] || '';
+  const postcode = row[7] || '';
 
   const addressJa = prefectureJa + cityJa + areaJa + streetJa;
   let addressEn = prefectureEn + ', Japan';
@@ -100,7 +99,8 @@ const parse = function(row) {
     'cityEn':       cityEn,        // City
     'areaEn':       areaEn,        // Area
     'streetEn':     streetEn,      // Street
-    'addressEn':    addressEn      // Street, Area, City, Prefecture, Japan
+    'addressEn':    addressEn,     // Street, Area, City, Prefecture, Japan
+    'postcode': postcode
   };
 };
 
@@ -118,9 +118,10 @@ export const getWithFilter = (_postCode, maxItems) => {
     .then(resp => resp.json())
     .then(json => {
       let returnArray = [];
-      for (let name in json) {
-        if ((new RegExp(postCode)).test(name)) {
-          returnArray = returnArray.concat(json[name]);
+      for (let postcode in json) {
+        if ((new RegExp(postCode)).test(postcode)) {
+          const newItems = json[postcode].map(item => item.concat(postcode));
+          returnArray = returnArray.concat(newItems);
           if (returnArray.length >= MAX_RETURN_ITEMS) {
             break;
           }
@@ -129,3 +130,5 @@ export const getWithFilter = (_postCode, maxItems) => {
       return take(maxItems || MAX_RETURN_ITEMS, returnArray).map(item => parse(item));
     });
 };
+
+exports.get = (_postalcode, maxItems) => getWithFilter(_postalcode, maxItems);
