@@ -13,19 +13,35 @@
   ],
   "author": "mzp",
   "contributors": [
-    {"name": "mzp"},
-    {"name": "meltedice", "url": "https://github.com/meltedice", "email": "meltedise@gmail.com"}
+    {
+      "name": "mzp"
+    },
+    {
+      "name": "meltedice",
+      "url": "https://github.com/meltedice",
+      "email": "meltedise@gmail.com"
+    }
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mzp/japan-postal-code/issues"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
     "expect.js": "~0.3.1",
+    "regenerator-runtime": "^0.13.1",
     "zuul": "~3.10.1"
   },
   "dependencies": {
-    "jsonp": "~0.2.0"
+    "axios": "^0.18.0",
+    "axios-jsonp": "^1.0.2",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "jsonp": "^0.2.1",
+    "ramda": "^0.26.1",
+    "request": "^2.88.0"
   },
   "scripts": {
     "test": "zuul -- test/*.js",
