@@ -2,7 +2,7 @@
   "name": "japan-postal-code",
   "version": "0.3.0",
   "description": "Japan postal code library",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/meltedice/japan-postal-code"
@@ -27,9 +27,7 @@
     "url": "https://github.com/mzp/japan-postal-code/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
-    "babel-core": "^7.0.0-bridge.0",
+    "babel-core": "^6.26.0",
     "babel-jest": "^23.6.0",
     "expect.js": "~0.3.1",
     "jest": "^23.6.0",
@@ -37,12 +35,15 @@
     "zuul": "~3.10.1"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "node-fetch": "^2.3.0",
     "ramda": "^0.26.1"
   },
   "scripts": {
     "test": "jest",
     "test-makejsonpdata-from-csv": "python makejsonpdata-from-csv.py --test",
-    "copy-data-to": "cp zipdata/*.js"
+    "copy-data-to": "cp zipdata/*.js",
+    "build": "babel index.js > lib/index.js"
   }
 }

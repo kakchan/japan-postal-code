@@ -36,7 +36,7 @@ exports.setCallbackName = function(name) {
   CALLBACK_NAME = name;
 };
 
-exports.get = _postalcode => getWithFilter(_postalcode);
+exports.get = (_postalcode, maxItems) => getWithFilter(_postalcode, maxItems);
 
 const cache = function (postalcode3, records) {
   if (records) {
@@ -106,7 +106,7 @@ const parse = function(row) {
 
 const MAX_RETURN_ITEMS = 10;
 
-export const getWithFilter = _postCode => {
+export const getWithFilter = (_postCode, maxItems) => {
   const postCode = normalizePostalcode(_postCode);
   if (!postCode || postCode.length < 3) {
     return Promise.resolve();
@@ -126,6 +126,6 @@ export const getWithFilter = _postCode => {
           }
         }
       }
-      return take(MAX_RETURN_ITEMS, returnArray).map(item => parse(item));
+      return take(maxItems || MAX_RETURN_ITEMS, returnArray).map(item => parse(item));
     });
 };
