@@ -113,12 +113,9 @@ export const getWithFilter = _postCode => {
   }
   const fileName = postCode.substr(0, 3);
   return request.get(postCodeFileUrl(fileName), {
-    resolveWithFullResponse: true
+    json: true
   })
-    .then(resp => {
-      console.log(resp);
-      const jsonString = resp.body.trim().replace(/(zipdata\(|\)$)/g, '');
-      const json = JSON.parse(jsonString);
+    .then(json => {
       let returnArray = [];
       for (let name in json) {
         if ((new RegExp(postCode)).test(name)) {

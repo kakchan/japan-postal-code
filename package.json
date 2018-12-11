@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "ramda": "^0.26.1",
-    "request": "^2.88.0",
     "request-promise-lite": "^0.15.0"
   },
   "scripts": {
