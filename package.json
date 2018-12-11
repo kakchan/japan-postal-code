@@ -41,8 +41,7 @@
     "request-promise-lite": "^0.15.0"
   },
   "scripts": {
-    "test": "zuul -- test/*.js",
-    "test-local": "zuul --local -- test/*.js",
+    "test": "jest",
     "test-makejsonpdata-from-csv": "python makejsonpdata-from-csv.py --test",
     "copy-data-to": "cp zipdata/*.js"
   }
