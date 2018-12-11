@@ -1,4 +1,4 @@
-import request from 'request-promise-lite';
+import fetchPromise from 'node-fetch';
 import { take } from 'ramda';
 
 
@@ -112,9 +112,10 @@ export const getWithFilter = _postCode => {
     return Promise.resolve();
   }
   const fileName = postCode.substr(0, 3);
-  return request.get(postCodeFileUrl(fileName), {
-    json: true
+  return fetchPromise(postCodeFileUrl(fileName), {
+    headers: { 'content-type': 'application/x-www-form-urlencoded' }
   })
+    .then(resp => resp.json())
     .then(json => {
       let returnArray = [];
       for (let name in json) {

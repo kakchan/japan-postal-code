@@ -37,8 +37,8 @@
     "zuul": "~3.10.1"
   },
   "dependencies": {
-    "ramda": "^0.26.1",
-    "request-promise-lite": "^0.15.0"
+    "node-fetch": "^2.3.0",
+    "ramda": "^0.26.1"
   },
   "scripts": {
     "test": "jest",
